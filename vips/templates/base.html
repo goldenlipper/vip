@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block head %}
+        <title>Golden Lipper Vip System</title>
+    {% endblock %}
+
+    {% load static %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'vips/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{% static 'vips/vendor/metisMenu/metisMenu.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'vips/dist/css/sb-admin-2.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'vips/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vips/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    {#    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">#}
+    {#    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">#}
+</head>
+
+<body>
+
+<div id="wrapper">
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'vips:index' %}">Golden Lipper Vip System</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    {% if user.gluser.vip1.customer_level_number != "" %}
+                        <li><a href="{% url 'vips:profile' user.gluser.vip1.id  user.gluser.vip1.customer_level_number %}"><i
+                                class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                    {% elif user.gluser.vip2.customer_level_number != "" %}
+                        <li><a href="{% url 'vips:profile' user.gluser.vip2.id  user.gluser.vip2.customer_level_number %}"><i
+                                class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+
+                    {% elif user.gluser.vip3.customer_level_number != "" %}
+                        <li><a href="{% url 'vips:profile' user.gluser.vip3.id  user.gluser.vip3.customer_level_number %}"><i
+                                class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                    {% elif user.gluser.vip4.customer_level_number != "" %}
+                        <li><a href="{% url 'vips:profile' user.gluser.vip4.id  user.gluser.vip4.customer_level_number %}"><i
+                                class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                    {% endif %}
+{#                    <li><a href="{% url 'accounts:edit_profile' %}"><i class="fa fa-gear fa-fw"></i> Settings</a>#}
+{#                    </li>#}
+                    <li class="divider"></li>
+                    <li><a href="{% url 'accounts:logout' %}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        {% if user.gluser.vip1.customer_level_number != "" %}
+                            <a href="{% url 'vips:dashboard' user.gluser.id  user.gluser.vip1.customer_level_number %}"><i
+                                    class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+
+                        {% elif user.gluser.vip2.customer_level_number != "" %}
+                            <a href="{% url 'vips:dashboard' user.gluser.id  user.gluser.vip2.customer_level_number %}"><i
+                                    class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+
+                        {% elif user.gluser.vip3.customer_level_number != "" %}
+                            <a href="{% url 'vips:dashboard' user.gluser.id  user.gluser.vip3.customer_level_number %}"><i
+                                    class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        {% elif user.gluser.vip4.customer_level_number != "" %}
+                            <a href="{% url 'vips:dashboard' user.gluser.id  user.gluser.vip4.customer_level_number %}"><i
+                                    class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        {% endif %}
+                    </li>
+                    <li>
+                        {% if user.gluser.vip1.customer_level_number != "" %}
+                            <a href="{% url 'vips:clients' user.gluser.id  user.gluser.vip1.customer_level_number %}"><i
+                                    class="fa fa-table fa-fw"></i> Tables</a>
+
+                        {% elif user.gluser.vip2.customer_level_number != "" %}
+                            <a href="{% url 'vips:clients' user.gluser.id  user.gluser.vip2.customer_level_number %}"><i
+                                    class="fa fa-table fa-fw"></i> Tables</a>
+
+                        {% elif user.gluser.vip3.customer_level_number != "" %}
+                            <a href="{% url 'vips:clients' user.gluser.id  user.gluser.vip3.customer_level_number %}"><i
+                                    class="fa fa-table fa-fw"></i> Tables</a>
+                        {% elif user.gluser.vip4.customer_level_number != "" %}
+                            <a href="{% url 'vips:clients' user.gluser.id  user.gluser.vip4.customer_level_number %}"><i
+                                    class="fa fa-table fa-fw"></i> Tables</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+
+</div>
+<!-- /#wrapper -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
+
+<!-- jQuery -->
+{#<script src="{% static 'vips/vendor/jquery/jquery.min.js' %}"></script>#}
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static 'vips/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{% static 'vips/vendor/metisMenu/metisMenu.min.js' %}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="{% static 'vips/vendor/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'vips/vendor/morrisjs/morris.min.js' %}"></script>
+<script src="{% static 'vips/data/morris-data.js' %}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{% static 'vips/dist/js/sb-admin-2.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
+<script type="text/javascript">
+    Morris.Area({
+        element: 'morris-area-chart',
+        data: [
+            {#        {% if user.vip1.customer_level_number != "" %}#}
+            {#        {% elif user.vip2.customer_level_number != "" %}#}
+            {##}
+            {#        {% elif user.vip3.customer_level_number != "" %}#}
+            {#        {% elif user.vip4.customer_level_number != "" %}#}
+            {#        {% endif %}#}
+            {
+                period: '2010 Q1',
+                total: 0,
+            }, {
+                period: '2010 Q2',
+                total: 5000,
+            }, {
+                period: '2010 Q3',
+                total: 4912,
+            }, {
+                period: '2010 Q4',
+                total: 3767,
+            }, {
+                period: '2011 Q1',
+                total: 6810,
+            }, {
+                period: '2011 Q2',
+                total: 5670,
+            }, {
+                period: '2011 Q3',
+                total: 4820,
+            }, {
+                period: '2011 Q4',
+                total: 15073,
+            }, {
+                period: '2012 Q1',
+                total: 10687,
+            }, {
+                period: '2012 Q2',
+                total: 8432,
+            }
+        ],
+        xkey: 'period',
+        ykeys: ['total'],
+        labels: ['total'],
+        pointSize: 2,
+        hideHover: 'auto',
+        resize: true
+    })
+    ;
+
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: [{
+            y: '2006',
+            a: 560,
+            b: 90
+        }, {
+            y: '2007',
+            a: 75,
+            b: 65
+        }, {
+            y: '2008',
+            a: 50,
+            b: 40
+        }, {
+            y: '2009',
+            a: 75,
+            b: 65
+        }, {
+            y: '2010',
+            a: 50,
+            b: 40
+        }, {
+            y: '2011',
+            a: 75,
+            b: 65
+        }, {
+            y: '2012',
+            a: 100,
+            b: 90
+        }],
+        xkey: 'y',
+        ykeys: ['a', 'b'],
+        labels: ['Series A', 'Series B'],
+        hideHover: 'auto',
+        resize: true
+    });
+
+
+</script>
+
+</body>
+
+</html>
